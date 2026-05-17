@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Post</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="nav-brand">My Blog</a>
+    </nav>
+    <div class="form-container">
+        <div class="form-header">
+            <h3>Update Post</h3>
+        </div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="input-container">
+                <input type="text" name="title" value="{{ post.title }}" required>
+                <textarea name="content" required>{{ post.content }}</textarea>
+                <input type="file" name="image">
+                <div class="botton">
+                    <button class="submit" type="submit">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

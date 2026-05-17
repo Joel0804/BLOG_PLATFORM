@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="nav-brand">My Blog</a>
+        <div style="display:flex; gap:10px;">
+            <a href="{% url 'create_post' %}" class="nav-btn">+ New Post</a>
+            <a href="{% url 'logout' %}" class="nav-btn" style="background:#e74c3c;">Logout</a>
+        </div>
+    </nav>
+    <div class="post-detail-container">
+        <h1>{{ post.title }}</h1>
+        <p class="post-meta">By {{ post.author }} — {{ post.date }}</p>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+        {% endif %}
+        <p class="post-body">{{ post.content }}</p>
+        <div style="display:flex; gap:10px; margin-top:1.5rem;">
+            <a href="{% url 'update_post' post.id %}" class="nav-btn">Edit</a>
+            <a href="{% url 'delete_post' post.id %}" class="nav-btn" style="background:#e74c3c;">Delete</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="nav-brand">My Blog</a>
+        <div style="display:flex; gap:10px;">
+            <a href="{% url 'create_post' %}" class="nav-btn">+ New Post</a>
+            <a href="{% url 'logout' %}" class="nav-btn" style="background:#e74c3c;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="posts-container">
+        {% for post in posts %}
+            <div class="post-card">
+                <h2>{{ post.title }}</h2>
+                <p class="post-meta">By {{ post.author }} — {{ post.date }}</p>
+                <p class="post-preview">{{ post.content|truncatewords:30 }}</p>
+                <div style="display:flex; gap: 10px;">
+                    <a href="{% url 'post_detail' post.id %}" class="read-more">Read more</a>
+                    <a href="{% url 'update_post' post.id %}" class="read-more">Edit</a>
+                    <a href="{% url 'delete_post' post.id %}" class="read-more" style="color: red;">Delete</a>
+                </div>
+            </div>
+        {% empty %}
+            <p>No posts yet.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
